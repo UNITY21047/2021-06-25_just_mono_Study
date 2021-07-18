@@ -1,0 +1,17 @@
+COMPILER := "csc"
+FILE_NAME := "../bin/hello.exe"
+PACKAGE_NAMES := "../libs/Raylib-cs.3.7.0/lib/netstandard2.1/Raylib-cs.dll;../libs/System.Numerics.Vectors.4.5.0/lib/netstandard2.0/System.Numerics.Vectors.dll;../libs/Raylib-cs.3.7.0/runtimes/win-x86/native/raylib.dll"
+OPTIONS := " hello.cs /noconfig /reference:" + PACKAGE_NAMES + " /out:" + FILE_NAME
+RUNNER := "mono " + FILE_NAME
+NUGET_MAIN_OPTIONS := " install"
+NUGET_OPT_OPTIONS := " -DirectDownload -OutputDirectory ../libs"
+PACKAGES := " ../libs/packages.config"
+
+build:
+	{{COMPILER}} {{OPTIONS}}
+
+run: build
+	{{RUNNER}}
+
+pak:
+	nuget {{NUGET_MAIN_OPTIONS}} {{PACKAGES}} {{NUGET_OPT_OPTIONS}}
